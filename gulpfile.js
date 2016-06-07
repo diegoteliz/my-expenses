@@ -18,14 +18,15 @@ var app = {
             cssDir      : 'css',
             jsDir       : 'js',
             jsSrcDir    : 'src/js',
-            jsApp       : 'src/js/scripts.js',
+            jsApp       : 'js/main.js',  // 'src/js/scripts.js'
             
             sassFiles   : [
                 'src/sass/**/*.scss'
             ],
             
             jsSrcFiles  : [
-                'src/js/**/*.js'
+                'js/**/*.js', // 'src/js/**/*.js'
+                '!js/lib/*.js'
             ],
             
             htmlFiles   : [
@@ -108,12 +109,12 @@ gulp.task('sass', function() {
 // Lint JavaScript files, minify it & reload browsers
 gulp.task('js', function() {
 
-    return gulp.src(app.path.jsApp)
+    return gulp.src(app.path.jsSrcFiles)
         .pipe(jshint(jshintOptions))
         .pipe(jshint.reporter('jshint-stylish', {beep: true}))
-        .pipe(uglify())
-        .pipe(header(app.banner, {pkg: pkg}))
-        .pipe(gulp.dest(app.path.jsDir))
+        //.pipe(uglify())
+        //.pipe(header(app.banner, {pkg: pkg}))
+        //.pipe(gulp.dest(app.path.jsDir))
         .pipe(browserSync.stream());
 });
 
