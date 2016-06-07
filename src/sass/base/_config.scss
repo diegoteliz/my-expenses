@@ -1,0 +1,81 @@
+// Fonts
+$font-family-primary        : "Open Sans", sans-serif, Helvetica, Arial !default;
+$font-family-secondary      : "Roboto", sans-serif, Helvetica, Arial !default;
+$font-size-base             : 16px !default;
+$font-size-primary          : 1rem !default;
+$font-size-xsmall           : 0.75rem !default;
+$font-size-small            : 0.875rem !default;
+$font-size-large            : 1.25rem !default;
+
+$font-size-h1               : 3rem !default;
+$font-size-h2               : 2rem !default;
+$font-size-h3               : 1.5rem !default;
+$font-size-h4               : $font-size-large !default;
+$font-size-h5               : $font-size-primary !default;
+$font-size-h6               : $font-size-small !default;
+
+// Color Pallete
+$brand-color                : #0072c6 !default;
+//TODO: add color pallete here
+
+// General Colors
+$black                      : #000 !default;
+$white                      : #fff !default;
+$gray                       : #ccc !default;
+$gray-light                 : #f4f4f4 !default;
+$gray-dark                  : #777 !default;
+$gray-extra-dark            : #222 !default;
+$info-color                 : #4a90e2 !default;
+$success-color              : #00d235 !default;
+$warning-color              : #e08c02 !default;
+$error-color                : #d0021b !default;
+
+$font-color-primary         : $gray-extra-dark !default;
+$font-color-secondary       : $white !default;
+$font-color-tertiary        : $gray !default;
+$font-color-quaternary      : $gray-dark !default;
+$link-color                 : $brand-color !default;
+$link-hover-color           : darken($link-color, 10%) !default;
+$bg-color-primary           : $gray-light !default;
+$bg-color-secondary         : $white !default;
+$bg-color-tertiary          : $gray-extra-dark !default;
+$border-color-primary       : $gray !default;
+$border-color-secondary     : $gray-dark !default;
+
+// Transitions
+$transition-primary         : all 0.3s ease !default;
+$transition-secondary       : all 0.6s cubic-bezier(0.2, 1, 0.3, 1) !default;
+$transition-tertiary        : all 1s cubic-bezier(0.7, 0, 0.3, 0.7) !default;
+$transition-quaternary      : all 0.8s cubic-bezier(0.2, 1, 0.3, 1) !default;
+$transition-fast            : all 0.2s ease !default;
+$transition-slow            : all 1s ease !default;
+
+// Breakpoints
+$phone-small                : 320px !default;
+$phone-medium               : 480px !default;
+$phone-large                : 640px !default;
+$tablet                     : 768px !default;
+$desktop-small              : 1024px !default;
+$desktop-medium             : 1280px !default;
+$desktop-large              : 1440px !default;
+
+// General dimensions and spacing
+$spacing-xxs                : 5px !default;
+$spacing-xs                 : 10px !default;
+$spacing-s                  : 15px !default;
+$spacing-m                  : 20px !default;
+$spacing-l                  : 24px !default;
+$spacing-xl                 : 30px !default;
+$spacing-xxl                : 45px !default;
+$max-width                  : $desktop-medium !default;
+$main-header-height         : 50px !default;
+$main-nav-width             : 280px !default;
+
+// Z-index
+$z-below-bottom             : -1 !default;
+$z-bottom                   : 0 !default;
+$z-middle-bottom            : 5 !default;
+$z-middle                   : 10 !default;
+$z-middle-top               : 15 !default;
+$z-top                      : 1000 !default;
+$z-above-top                : 1005 !default;

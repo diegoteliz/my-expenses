@@ -1,0 +1,245 @@
+// Main Header
+.main-header {
+    background: $bg-color-tertiary;
+    height: $main-header-height;
+    position: fixed;
+    top: 0;
+    transition: $transition-primary;
+    width: 100%;
+    z-index: $z-top;
+
+    &.collapsed {
+        top: -($main-header-height);
+    }
+}
+
+.main-header-title {
+    @extend .heading-5;
+    color: $font-color-secondary;
+    font-weight: 700;
+    margin: $font-size-h5 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+// Overlay
+.overlay {
+    background: rgba(0, 0, 0, 0.2);
+    height: 100%;
+    opacity: 0;
+    position: fixed;
+    transition: $transition-primary;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+    z-index: $z-middle-top;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    &.invisible {
+        visibility: visible;
+    }
+}
+
+// Navigation button
+.nav-btn {
+    display: block;
+    padding: $main-header-height / 2 ($main-header-height / 5 * 3);
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: $transition-primary;
+
+    .nav-icon {
+        background: $bg-color-secondary;
+        display: block;
+        height: 2px;
+        left: $spacing-m;
+        margin-top: -2px;
+        position: absolute;
+        top: 50%;
+        transition: $transition-primary;
+        width: $main-header-height / 2;
+
+        &:before,
+        &:after {
+            background: $bg-color-secondary;
+            content: "";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            transition: $transition-primary;
+            width: 100%;
+        }
+
+        &:before {
+            transform: translateY(-300%);
+        }
+
+        &:after {
+            transform: translateY(300%);
+        }
+    }
+
+    &.active {
+        
+        .nav-icon {
+            background: transparent;
+            height: 2px;
+
+            &:before {
+                transform: translateY(0) rotate(45deg);
+            }
+
+            &:after {
+                transform: translateY(0) rotate(-45deg);
+            }
+        }
+    }
+}
+
+// Main Navigation
+.main-nav {
+    background: $bg-color-secondary;
+    box-shadow: 1px 0 10px 0 rgba(0, 0, 0, 0.4);
+    display: block;
+    height: 100%;
+    left: -($main-nav-width);
+    position: fixed;
+    overflow: auto;
+    top: $main-header-height;
+    transition: $transition-secondary;
+    width: $main-nav-width;
+    z-index: $z-top;
+
+    &.opened {
+        left: 0;
+    }
+}
+
+// Navigation links
+.nav-item {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100px);
+    transition: $transition-secondary;
+}
+.main-nav.opened .nav-item {
+    opacity: 1;
+    transform: translateX(0);
+    transition: $transition-secondary;
+    visibility: visible;
+
+    // Menu opening - Cascade animation effect
+    @for $i from 1 through 15 {
+        &:nth-of-type(#{$i}) {
+            transition-delay: (0.05s * ($i - 1) + 0.1s);
+        }
+    }
+}
+
+.nav-link {
+    @extend .text-ellipsed;
+    background: $bg-color-secondary;
+    box-sizing: border-box;
+    color: $font-color-primary;
+    display: block;
+    font-size: $font-size-primary;
+    font-weight: 400;
+    padding: $spacing-s $spacing-m;
+    text-decoration: none;
+    transition: $transition-primary;
+    width: 100%;
+
+    &:hover,
+    &.active {
+        background: $bg-color-primary;
+        color: $font-color-primary;
+    }
+}
+
+// Options button
+.options-menu-btn {
+    display: block;
+    padding: $main-header-height / 2;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: $transition-primary;
+
+    .options-icon {
+        background: $bg-color-secondary;
+        border-radius: 50%;
+        display: block;
+        height: 4px;
+        left: ($main-header-height / 2) - 2px;
+        margin-top: -2px;
+        position: absolute;
+        top: 50%;
+        transition: $transition-primary;
+        width: 4px;
+
+        &:before,
+        &:after {
+            background: $bg-color-secondary;
+            border-radius: 50%;
+            content: "";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            transition: $transition-primary;
+            width: 100%;
+        }
+
+        &:before {
+            transform: translateY(-170%);
+        }
+
+        &:after {
+            transform: translateY(170%);
+        }
+    }
+}
+
+// Options Menu
+.options-menu {
+    background: $bg-color-secondary;
+    border-radius: 2px;
+    box-shadow: -1px 2px 7px 0 rgba(0, 0, 0, 0.3);
+    line-height: 1;
+    opacity: 0;
+    position: fixed;
+    right: $spacing-xxs;
+    top: $main-header-height;
+    transition: $transition-secondary;
+    transform: scale(0.5);
+    visibility: hidden;
+    z-index: $z-above-top;
+
+    &.opened {
+        opacity: 1;
+        transform: scale(1);
+        visibility: visible;
+    }
+}
+
+.options-item {
+    display: block;
+}
+
+.options-link {
+    color: $font-color-quaternary;
+    display: block;
+    line-height: 1;
+    font-size: $font-size-xsmall;
+    padding: $spacing-s $spacing-xl;
+    text-decoration: none;
+    transition: $transition-primary;
+
+    &:hover {
+        color: $font-color-primary;
+    }
+}

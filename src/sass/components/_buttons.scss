@@ -1,0 +1,66 @@
+// Buttons
+.btn {
+    background: $brand-color;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    color: $font-color-secondary;
+    cursor: pointer;
+    font-family: $font-family-secondary;
+    font-size: $font-size-primary;
+    display: inline-block;
+    line-height: 1;
+    margin-bottom: 0;
+    outline: 0;
+    padding: $spacing-xs $spacing-m;
+    text-align: center;
+    text-decoration: none;
+    transition: $transition-primary;
+    vertical-align: middle;
+    white-space: nowrap;
+
+    &:hover,
+    &:active,
+    &.active {
+        background: lighten($brand-color, 15%);
+        color: $font-color-secondary;
+    }
+
+    &.disabled {
+        opacity: 0.5;
+    }
+}
+
+// Button Sizes
+.btn-small {
+    @extend .btn;
+    border-radius: 2px;
+    font-size: $font-size-small;
+    padding: $spacing-xxs $spacing-s;
+}
+
+.btn-large {
+    @extend .btn;
+    font-size: $font-size-large;
+    padding: $spacing-s $spacing-xl;
+}
+
+// Block button
+.btn-block {
+    @extend .btn;
+    display: block;
+    width: 100%;
+}
+
+// Vertically space out multiple block buttons
+.btn-block + .btn-block {
+    margin-top: $spacing-xxs;
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    &.btn-block {
+    width: 100%;
+    }
+}

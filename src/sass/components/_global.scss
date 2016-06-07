@@ -1,0 +1,313 @@
+// Fonts
+// TODO: define Fonts (and icon fonts) here
+
+// General
+html {
+    font-size: $font-size-base;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    background: $bg-color-primary;
+    color: $font-color-primary;
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    font-weight: 400;
+    margin: 0;
+    min-height: 100%;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+.heading-1 {
+    color: $font-color-primary;
+    font-family: $font-family-primary;
+    font-size: $font-size-h1;
+    font-weight: 300;
+    line-height: 1.1;
+    margin: ($font-size-h1 / 2) 0 ($font-size-h1 / 2.5);
+
+    &.alt {
+        color: $font-color-secondary;
+    }
+}
+
+h2,
+.heading-2 {
+    color: $font-color-primary;
+    font-family: $font-family-primary;
+    font-size: $font-size-h2;
+    font-weight: 300;
+    line-height: 1.1;
+    margin: ($font-size-h2 / 2) 0 ($font-size-h2 / 2.5);
+
+    &.alt {
+        color: $font-color-secondary;
+    }
+}
+
+h3,
+.heading-3 {
+    color: $font-color-primary;
+    font-family: $font-family-primary;
+    font-size: $font-size-h3;
+    font-weight: 300;
+    line-height: 1.1;
+    margin: ($font-size-h3 / 2) 0 ($font-size-h3 / 2.5);
+
+    &.alt {
+        color: $font-color-secondary;
+    }
+}
+
+h4,
+.heading-4 {
+    color: $font-color-primary;
+    font-family: $font-family-primary;
+    font-size: $font-size-h4;
+    font-weight: 300;
+    line-height: 1.1;
+    margin: ($font-size-h4 / 2) 0 ($font-size-h4 / 2.5);
+
+    &.alt {
+        color: $font-color-secondary;
+    }
+}
+
+h5,
+.heading-5 {
+    color: $font-color-primary;
+    font-family: $font-family-primary;
+    font-size: $font-size-h5;
+    font-weight: 300;
+    line-height: 1.1;
+    margin: ($font-size-h5 / 2) 0 ($font-size-h5 / 2.5);
+
+    &.alt {
+        color: $font-color-secondary;
+    }
+}
+
+h6,
+.heading-6 {
+    color: $font-color-primary;
+    font-family: $font-family-primary;
+    font-size: $font-size-h6;
+    font-weight: 300;
+    line-height: 1.1;
+    margin: ($font-size-h6 / 2) 0 ($font-size-h6 / 2.5);
+
+    &.alt {
+        color: $font-color-secondary;
+    }
+}
+
+a {
+    color: $link-color;
+    text-decoration: underline;
+    transition: $transition-fast;
+    &:hover {
+        color: $link-hover-color;
+    }
+    &:active,
+    &:focus {
+        outline: 0;
+    }
+}
+
+strong {
+    font-weight: 700;
+}
+
+em {
+    font-style: italic;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+p,
+.text {
+    color: $font-color-primary;
+    font-family: $font-family-primary;
+    font-size: $font-size-primary;
+    font-weight: 300;
+    line-height: 1.2;
+    margin: $spacing-m 0;
+}
+
+.text-small {
+    @extend .text;
+    font-size: $font-size-small;
+    line-height: 1;
+    margin: 0 0 $spacing-s;
+}
+
+.text-xsmall {
+    @extend .text-small;
+    font-size: $font-size-xsmall;
+}
+
+.text-large {
+    @extend .text;
+    font-size: $font-size-large;
+}
+
+.text-ellipsed {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.text-light {
+    font-weight: 300;
+}
+
+.text-thin {
+    font-weight: 100;
+}
+
+// Base Layout
+.main-content {
+    padding: $main-header-height 0 0;
+
+    &.level-0 {
+        padding: 0;
+    }
+}
+
+.wrapper {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0 5%;
+    width: 100%;
+
+    @include breakpoint($max-width) {
+        width: $max-width;
+    }
+}
+
+// Placeholders
+%hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+%visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+// Common rules
+.hidden,
+.is-hidden {
+    @extend %hidden;
+}
+
+.visible,
+.is-visible {
+    @extend %visible;
+}
+
+.centered {
+    text-align: center;
+}
+
+.vertical-centered {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.alt {
+        position: absolute;
+    }
+}
+
+.divider {
+    border-top: 1px solid $border-color-primary;
+    display: block;
+    width: 100%;
+}
+
+.table {
+    display: table;
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+    vertical-align: middle;
+
+    &.top-aligned {
+        vertical-align: top;
+    }
+
+    &.bottom-aligned {
+        vertical-align: bottom;
+    }
+}
+
+// Print
+@media print {
+    * {
+        background: transparent;
+        box-shadow: none;
+        color: #000;
+        text-shadow: none;
+    }
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+    thead {
+        display: table-header-group;
+    }
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+    img {
+        max-width: 100%;
+    }
+    @page {
+        margin: 0.5cm;
+    }
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
