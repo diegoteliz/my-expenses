@@ -6,22 +6,33 @@ define([
 
     'use strict';
 
+    var $window             = $(window),
+        $body               = $('body'),
+        $menuBtn            = $('.nav-btn'),
+        $optionsBtn         = $('.options-menu-btn'),
+        $mainHeader         = $('.main-header'),
+        $menu               = $('.main-nav'),
+        $optionsMenu        = $('.options-menu'),
+        $overlay            = $('.overlay'),
+        $navItem            = $('.nav-item'),
+        $navLink            = $('.nav-link'),
+        windowHeight        = $window.height(),
+        windowWidth         = $window.width(),
+        currentPosition     = $window.scrollTop(),
+        breakpoints         = {
+            phoneSmall      : 320,
+            phoneMedium     : 480,
+            phoneLarge      : 640,
+            tablet          : 768,
+            desktopSmall    : 1024
+        };
+
     var CoreView = Backbone.View.extend({
 
-        el              : 'body',
-        $overlay        : $('.overlay'),
-        $window         : $(window),
-        $menuBtn        : $('.nav-btn'),
-        $optionsBtn     : $('.options-menu-btn'),
-        $mainHeader     : $('.main-header'),
-        $menu           : $('.main-nav'),
-        $optionsMenu    : $('.options-menu'),
-        $navItem        : $('.nav-item'),
-        $navLink        : $('.nav-link'),
+        el: 'body',
 
         events: {
             // TODO: add events here
-            //'submit .search-form': 'search',
             'click .nav-btn'            : 'toggleMenu',
             'click .nav-link'           : 'navLink',
             'click .options-menu-btn'   : 'toggleOptionsMenu',
@@ -33,21 +44,8 @@ define([
             //this.listenTo(this.model, 'change', this.render);
             //this.render();
 
-            var $window         = $(window),
-                $mainHeader     = this.$mainHeader,
-                windowHeight    = $window.height(),
-                windowWidth     = $window.width(),
-                currentPosition = $window.scrollTop(),
-                breakpoints     = {
-                    phoneSmall      : 320,
-                    phoneMedium     : 480,
-                    phoneLarge      : 640,
-                    tablet          : 768,
-                    desktopSmall    : 1024
-                };
-
             // Events triggered on scroll
-            $window.on('scroll', function(event) {
+            $window.on('scroll', function() {
 
                 if (windowWidth <= breakpoints.desktopSmall) {
 
@@ -70,9 +68,8 @@ define([
 
             });
 
-
             // Events triggered on Window resize
-            $window.on('resize', function(event) {
+            $window.on('resize', function() {
                 windowHeight    = $window.height();
                 windowWidth     = $window.width();
             });
@@ -84,7 +81,6 @@ define([
 
         toggleMenu: function(event) {
             event.preventDefault();
-            var $menu = this.$menu;
 
             if($menu.is('.opened')){
                 this.closeMenu();
@@ -94,11 +90,6 @@ define([
         },
 
         openMenu: function() {
-
-            var $menu           = this.$menu,
-                $menuBtn        = this.$menuBtn,
-                $overlay        = this.$overlay,
-                $optionsMenu    = this.$optionsMenu;
 
             // Close options menu if opened
             if($optionsMenu.is('.opened')) {
@@ -111,31 +102,20 @@ define([
         },
 
         closeMenu: function() {
-
-            var $menu       = this.$menu,
-                $menuBtn    = this.$menuBtn,
-                $overlay    = this.$overlay;
-            
             $menu.removeClass('opened');
             $menuBtn.removeClass('active');
             $overlay.removeClass('active');
         },
 
         navLink: function(event) {
-            var $navLink    = this.$navLink,
-                $this       = $(event.currentTarget);
-            
+            var $this = $(event.currentTarget);
             $navLink.removeClass('active');
             $this.addClass('active');
-            
             this.closeMenu();
         },
 
         overlayHandler: function() {
 
-            var $menu           = this.$menu,
-                $optionsMenu    = this.$optionsMenu;
-            
             // Close main menu if opened
             if($menu.is('.opened')) {
                 this.closeMenu();
@@ -150,9 +130,6 @@ define([
         toggleOptionsMenu: function(event) {
             event.preventDefault();
 
-            var $optionsMenu    = this.$optionsMenu,
-                $menu           = this.$menu;
-                
             if($optionsMenu.is('.opened')){
                 this.closeOptionsMenu();
                 
@@ -162,9 +139,6 @@ define([
         },
 
         openOptionsMenu: function() {
-            var $optionsMenu    = this.$optionsMenu,
-                $menu           = this.$menu,
-                $overlay        = this.$overlay;
             
             // Close main menu if opened
             if($menu.is('.opened')) {
@@ -177,10 +151,6 @@ define([
         },
 
         closeOptionsMenu: function() {
-            var $optionsMenu    = this.$optionsMenu,
-                $overlay        = this.$overlay;
-            
-            // Close options menu
             $optionsMenu.removeClass('opened');
             $overlay.removeClass('invisible');
         },

@@ -87,7 +87,7 @@ var app = {
         'strict'    : true,
         'camelcase' : true,
         'quotmark'  : 'single',
-        'unused'    : false,
+        'unused'    : false,            // Set this to 'true' when developing
         'jquery'    : true
     };
 
