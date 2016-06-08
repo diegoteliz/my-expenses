@@ -87,7 +87,7 @@ var app = {
         'strict'    : true,
         'camelcase' : true,
         'quotmark'  : 'single',
-        'unused'    : false,        // Set this to 'true' when developing
+        'unused'    : false,
         'jquery'    : true
     };
 
@@ -101,7 +101,7 @@ gulp.task('sass', function() {
         .pipe(csslint(csslintOptions))
         .pipe(csslint.reporter())
         .pipe(sourcemaps.write('./'))
-        .pipe(header(app.banner, {pkg: pkg}))
+        //.pipe(header(app.banner, {pkg: pkg}))
         .pipe(gulp.dest(app.path.cssDir))
         .pipe(browserSync.stream({match: '**/*.css'}));
 });

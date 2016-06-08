@@ -1,7 +1,0 @@
-/**
- * My Expenses v1.0.0
- * https://github.com/diegoteliz/my-expenses#readme
- * Copyright (c) 2016 - Diego Teliz <aloha@diegoteliz.com>
- * MIT License
- */
-jQuery(document).ready(function(e){"use strict";var i=e(window),s=(e("body"),e(".nav-btn")),n=e(".options-menu-btn"),o=e(".main-header"),a=e(".main-nav"),l=e(".options-menu"),c=e(".overlay"),t=(e(".nav-item"),e(".nav-link")),d=i.height(),r=i.width(),p=i.scrollTop(),v={phoneSmall:320,phoneMedium:480,phoneLarge:640,tablet:768,desktopSmall:1024};s.click(function(e){e.preventDefault(),a.is(".opened")?(a.removeClass("opened"),s.removeClass("active"),c.removeClass("active")):(l.is(".opened")&&n.trigger("click"),a.addClass("opened"),s.addClass("active"),c.addClass("active"))}),t.click(function(i){i.preventDefault(),t.removeClass("active"),e(this).addClass("active")}),n.click(function(e){e.preventDefault(),l.is(".opened")?(l.removeClass("opened"),c.removeClass("invisible")):(a.is(".opened")&&s.trigger("click"),l.addClass("opened"),c.addClass("invisible"))}),c.click(function(e){a.is(".opened")&&s.trigger("click"),l.is(".opened")&&n.trigger("click")}),i.keydown(function(e){switch(e.which){case 27:a.is(".opened")&&s.trigger("click"),l.is(".opened")&&n.trigger("click")}}),i.on("scroll",function(e){if(r<=v.desktopSmall){var s=i.scrollTop();s>p?p>=50&&o.addClass("collapsed"):o.is(".collapsed")&&o.removeClass("collapsed"),p=s}}),i.on("resize",function(e){d=i.height(),r=i.width()})});

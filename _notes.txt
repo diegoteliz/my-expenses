@@ -1,0 +1,24 @@
+// TODO: delete this file
+
+
+Entities {
+    - operations
+        - id
+        - date
+        - amount
+        - categoryId
+        - type
+        - notes
+    - categories
+        - id
+        - name
+        - color
+}
+
+Menu {
+    Dashboard           -> ''
+    Operations          -> 'operations'
+    Categories          -> 'categories'
+    Summary 'Charts'    -> 'summary'
+    Settings            -> 'settings'
+}

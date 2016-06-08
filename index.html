@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Frontend Boilerplate</title>
+        <title>** tmp SPA</title>
         <meta name="description" content="Frontend boilerplate - Diego Téliz" />
         <meta name="author" content="Diego Teliz, aloha@diegoteliz.com" />
 
@@ -59,9 +59,6 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="/css/style.css?ver=1.0.0" />
         
-        <!-- Scripts -->
-        <!-- <script data-main="/js/main" src="/js/vendor/require.js"></script> -->
-
         <!-- Favicons -->
         <!-- TODO: add favicons here -->
 
@@ -78,25 +75,52 @@
 
         <!-- App preloader -->
         <div id="preloader"></div>
-        
-        <!-- Main menu -->
-        <nav class="main-menu"></nav>
 
         <!-- Main header -->
-        <header class="main-header"></header>
+        <header class="main-header">
+            <a href="#" class="nav-btn"><span class="nav-icon"></span></a>
+            <h1 class="main-header-title">Frontend Boilerplate</h1>
+            <a href="#" class="options-menu-btn"><span class="options-icon"></span></a>
+        </header>
+
+        <!-- Overlay -->
+        <div class="overlay"></div>
+        
+        <!-- Main menu -->
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="/operations" class="nav-link">Operations</a></li>
+                <li class="nav-item"><a href="/categories" class="nav-link">Categories</a></li>
+                <li class="nav-item"><a href="/summary" class="nav-link">Summary</a></li>
+                <li class="nav-item"><a href="/settings" class="nav-link">Settings</a></li>
+            </ul>
+        </nav>
+
+        <!-- Options menu -->
+        <ul class="options-menu">
+            <li class="options-item"><a href="#" class="options-link">Option 1</a></li>
+            <li class="options-item"><a href="#" class="options-link">Option 2</a></li>
+            <li class="options-item"><a href="#" class="options-link">Option 3</a></li>
+            <li class="options-item"><a href="#" class="options-link">Option 4</a></li>
+        </ul>
 
         <!-- Main page content -->
-        <main class="main-content">
+        <main class="main-content" style="padding-bottom: 70px;">
             
             <div id="dinamic-content">
                 <!-- Here will be loaded HTML asynchronously -->
             </div>
 
+            <div class="wrapper">
+                <h1 style="height: 1200px;">Test</h1>
+                
+            </div>
+
         </main>
 
         <!-- Scripts -->
-        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/lib/jquery.js?ver=1.11.3"><\/script>')</script>
-        <script type='text/javascript' src='js/scripts.js?ver=1.0.0'></script>
+        <script data-main="/js/main" src="/js/lib/require.js"></script>
+
     </body>
 </html>
