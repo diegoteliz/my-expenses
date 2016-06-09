@@ -6,6 +6,14 @@ define([
 
     'use strict';
 
+    // TODO: improve this view creating subviews for:
+    // - overlay
+    // - menu
+    // - menuBtn
+    // - menuItems
+    // - optionsMenu
+    // - optionsMenuBtn
+
     var $window             = $(window),
         $body               = $('body'),
         $menuBtn            = $('.nav-btn'),
@@ -19,6 +27,8 @@ define([
         windowHeight        = $window.height(),
         windowWidth         = $window.width(),
         currentPosition     = $window.scrollTop(),
+        
+        // TODO move this var below as GLOBAL
         breakpoints         = {
             phoneSmall      : 320,
             phoneMedium     : 480,
@@ -32,7 +42,6 @@ define([
         el: 'body',
 
         events: {
-            // TODO: add events here
             'click .nav-btn'            : 'toggleMenu',
             'click .nav-link'           : 'navLink',
             'click .options-menu-btn'   : 'toggleOptionsMenu',
@@ -41,38 +50,14 @@ define([
         },
 
         initialize: function() {
+
+            _.bindAll(this, 'scrollHandler');
+
+            $window.on('scroll', this.scrollHandler);
+            $window.on('resize', this.resizeHandler);
+
             //this.listenTo(this.model, 'change', this.render);
             //this.render();
-
-            // Events triggered on scroll
-            $window.on('scroll', function() {
-
-                if (windowWidth <= breakpoints.desktopSmall) {
-
-                    // Show / Hide Main header on Mobile
-                    var scroll = $window.scrollTop();
-
-                    if (scroll > currentPosition) {
-                        if (currentPosition >= 50) {
-                            $mainHeader.addClass('collapsed');
-                        }
-
-                    } else {
-                        if ($mainHeader.is('.collapsed')) {
-                            $mainHeader.removeClass('collapsed');
-                        }
-                    }
-
-                    currentPosition = scroll;
-                }
-
-            });
-
-            // Events triggered on Window resize
-            $window.on('resize', function() {
-                windowHeight    = $window.height();
-                windowWidth     = $window.width();
-            });
         },
 
         render: function() {
@@ -153,6 +138,33 @@ define([
         closeOptionsMenu: function() {
             $optionsMenu.removeClass('opened');
             $overlay.removeClass('invisible');
+        },
+
+        scrollHandler: function() {
+            
+            if (windowWidth <= breakpoints.desktopSmall) {
+
+                // Show / Hide Main header on Mobile
+                var scroll = $window.scrollTop();
+
+                if (scroll > currentPosition) {
+                    if (currentPosition >= 50) {
+                        $mainHeader.addClass('collapsed');
+                    }
+
+                } else {
+                    if ($mainHeader.is('.collapsed')) {
+                        $mainHeader.removeClass('collapsed');
+                    }
+                }
+
+                currentPosition = scroll;
+            }
+        },
+
+        resizeHandler: function() {
+            windowHeight = $window.height();
+            windowWidth  = $window.width();
         },
 
         keyDownHandler: function(event){
