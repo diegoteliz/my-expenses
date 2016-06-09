@@ -11,6 +11,10 @@ require.config({
         backbone: [
             '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min',
             'lib/backbone'
+        ],
+        text: [
+            '//cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text.min',
+            'lib/text'
         ]
     },
 
