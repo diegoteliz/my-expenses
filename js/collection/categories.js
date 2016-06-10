@@ -6,11 +6,11 @@ define([
     
     'use strict';
 
+    // Create Categories Collection
     var CategoriesCollection = Backbone.Collection.extend({
-
         model: Category
-
     });
-    
+
     return CategoriesCollection;
+
 });

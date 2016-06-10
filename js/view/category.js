@@ -3,9 +3,10 @@ define([
     'underscore',
     'backbone',
 ], function($, _, Backbone) {
-    
+
     'use strict';
-    
+
+    // Create Category View
     var CategoryView = Backbone.View.extend({
 
         tagName: 'tr',
@@ -18,6 +19,6 @@ define([
         }
 
     });
-    
+
     return CategoryView;
 });

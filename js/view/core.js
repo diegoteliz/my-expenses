@@ -2,9 +2,8 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'model/category',
-    'collection/categories'
-], function($, _, Backbone, CategoryModel, CategoriesCollection) {
+    'view/categories'
+], function($, _, Backbone, CategoriesView) {
 
     'use strict';
 
@@ -63,45 +62,8 @@ define([
         },
 
         render: function() {
-
-            var category1 = new CategoryModel({
-                id: 1,
-                name: 'Category one',
-                color: '#ff0000'
-            }),
-            category2 = new CategoryModel({
-                id: 2,
-                name: 'Category two',
-                color: '#ffff00'
-            }),
-            category3 = new CategoryModel({
-                id: 3,
-                name: 'Category three',
-                color: '#0000ff'
-            });
-
-
-            var Categories = new CategoriesCollection();
-
-            Categories.add(category1);
-            Categories.add(category2);
-            Categories.add(category3);
-
-            Categories.each(function(category) {
-                $('.table').append(
-                    '<tr>' +
-                    '<td>' + category.get('id') + '</td>' +
-                    '<td>' + category.get('name') + '</td>' +
-                    '<td>' + category.get('color') + '</td>' +
-                    '</tr>'
-                );
-            });
-
-
-            $('.cat-1-id').html(category1.get('id'));
-            $('.cat-1-name').html(category1.get('name'));
-            $('.cat-1-color').html(category1.get('color'));
-
+            // Show List of Categories
+            var categoriesView = new CategoriesView();
 
             console.log('render -> CoreView');
         },
