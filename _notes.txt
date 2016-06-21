@@ -22,3 +22,12 @@ Menu {
     Summary 'Charts'    -> 'summary'
     Settings            -> 'settings'
 }
+
+
+--- Operation 'add' form ---
+
+Amount: (decimal)
+Date: (datepicker)
+Category: (combobox with default category preselected)
+Type: (radio buttons)
+Notes: (text area)
