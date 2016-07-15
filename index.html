@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>** tmp SPA</title>
+        <title>Exp</title>
         <meta name="description" content="Frontend boilerplate - Diego Téliz" />
         <meta name="author" content="Diego Teliz, aloha@diegoteliz.com" />
 
@@ -70,6 +70,9 @@
 
         <!-- Google Analytics code -->
 
+        <!-- Google Sign-in -->
+        <!-- <meta name="google-signin-scope" content="https://www.googleapis.com/auth/spreadsheets"> -->
+        <meta name="google-signin-client_id" content="504102905851-nuidhoa6s03n8rs822sbgci4q4b72s7r.apps.googleusercontent.com">
     </head>
     <body>
 
@@ -79,7 +82,7 @@
         <!-- Main header -->
         <header class="main-header">
             <a href="#" class="nav-btn static"><span class="nav-icon"></span></a>
-            <h1 class="main-header-title">Frontend Boilerplate</h1>
+            <h1 class="main-header-title">Test</h1>
             <a href="#" class="options-menu-btn static"><span class="options-icon"></span></a>
         </header>
 
@@ -88,12 +91,18 @@
         
         <!-- Main menu -->
         <nav class="main-nav">
+            <div class="profile-details">
+                <img class="profile-image" src="" alt="">
+                <p class="profile-name"></p>
+                <i class="profile-email"></i>
+                <a href="#" class="user-logout">Logout</a>
+            </div>
             <ul class="nav-list">
                 <li class="nav-item"><a href="/" class="nav-link">Dashboard</a></li>
-                <li class="nav-item"><a href="/operations" class="nav-link">Operations</a></li>
-                <li class="nav-item"><a href="/categories" class="nav-link">Categories</a></li>
-                <li class="nav-item"><a href="/summary" class="nav-link">Summary</a></li>
-                <li class="nav-item"><a href="/settings" class="nav-link">Settings</a></li>
+                <li class="nav-item"><a href="/envelopes.html" class="nav-link">Env</a></li>
+                <li class="nav-item"><a href="/goals.html" class="nav-link">Next</a></li>
+                <li class="nav-item"><a href="/settings.html" class="nav-link">Settings</a></li>
+                <li class="nav-item"><a href="/logut.html" class="nav-link">Logout</a></li>
             </ul>
         </nav>
 
@@ -108,28 +117,18 @@
         <!-- Main page content -->
         <main class="main-content" style="padding-bottom: 70px;">
             
-            <div id="dinamic-content">
-                <!-- Here will be loaded HTML asynchronously -->
-            </div>
-
-            <div class="wrapper">
-                <h1>Test</h1>
-
-                <table class="table">
-                    
-                </table>
-
-                <script type="text/template" class="category-template">
-                    <td><%= id %></td>
-                    <td><%= name %></td>
-                    <td><%= color %></td>
-                </script>
-            </div>
+            <section class="dashboard">
+                <div class="wrapper" style="margin-top:100px">
+                    <div id="google-login-btn" class="google-login-btn"></div>
+                </div>
+            </section>
 
         </main>
 
         <!-- Scripts -->
-        <script data-main="/js/main" src="/js/lib/require.js"></script>
-
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/lib/jquery.js?ver=1.11.3"><\/script>')</script>
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+        <script type='text/javascript' src='js/scripts.js?ver=1.0.0'></script>
     </body>
 </html>

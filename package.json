@@ -2,7 +2,7 @@
   "name": "my-expenses",
   "title": "My Expenses",
   "version": "1.0.0",
-  "description": "JS app for managing my expenses",
+  "description": "JS web app for managing my expenses",
   "year": "2016",
   "main": "gulpfile.js",
   "dependencies": {
