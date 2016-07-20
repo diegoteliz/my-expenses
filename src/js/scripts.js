@@ -25,27 +25,36 @@ jQuery(document).ready(function($) {
         };
 
     // Main navigation
+    function openMenu() {
+
+        // Close options menu if opened
+        if($optionsMenu.is('.opened')) {
+            closeOptionsMenu();
+        }
+
+        // Open menu
+        $menu.addClass('opened');
+        $menuBtn.addClass('active');
+        $overlay.addClass('active');
+    }
+
+    function closeMenu() {
+        $menu.removeClass('opened');
+        $menuBtn.removeClass('active');
+        $overlay.removeClass('active');
+    }
+
+    function toggleMenu() {
+        if($menu.is('.opened')){
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    }
+
     $menuBtn.click(function(event) {
         event.preventDefault();
-
-        if(!$menu.is('.opened')){
-
-            // Close options menu if opened
-            if($optionsMenu.is('.opened')) {
-                $optionsBtn.trigger('click');
-            }
-
-            // Open menu
-            $menu.addClass('opened');
-            $menuBtn.addClass('active');
-            $overlay.addClass('active');
-        } else {
-            
-            // Close menu
-            $menu.removeClass('opened');
-            $menuBtn.removeClass('active');
-            $overlay.removeClass('active');
-        }
+        toggleMenu();
     });
 
     // Navigations links
@@ -56,41 +65,52 @@ jQuery(document).ready(function($) {
     });
 
     // Options menu
-    $optionsBtn.click(function(event) {
-        event.preventDefault();
-
-        if(!$optionsMenu.is('.opened')){
-
-            // Close main menu if opened
-            if($menu.is('.opened')) {
-                $menuBtn.trigger('click');
-            }
-
-            // Open options menu
-            $optionsMenu.addClass('opened');
-            $overlay.addClass('invisible');
-        } else {
-            
-            // Close options menu
-            $optionsMenu.removeClass('opened');
-            $overlay.removeClass('invisible');
-        }
-    });
-
-    // Overlay
-    $overlay.click(function(event) {
-        
+    function openOptionsMenu() {
         // Close main menu if opened
         if($menu.is('.opened')) {
-            $menuBtn.trigger('click');
+            closeMenu();
+        }
+
+        // Open options menu
+        $optionsMenu.addClass('opened');
+        $overlay.addClass('invisible');
+    }
+
+    function closeOptionsMenu() {
+        $optionsMenu.removeClass('opened');
+        $overlay.removeClass('invisible');
+    }
+
+    function toggleOptionsMenu() {
+        if($optionsMenu.is('.opened')){
+            closeOptionsMenu();
+        } else {
+            openOptionsMenu();
+        }
+    }
+
+    $optionsBtn.click(function(event) {
+        event.preventDefault();
+        toggleOptionsMenu();
+    });
+
+    // Close all opened menus
+    function closeAll() {
+        // Close main menu if opened
+        if($menu.is('.opened')) {
+            closeMenu();
         }
 
         // Close options menu if opened
         if($optionsMenu.is('.opened')) {
-            $optionsBtn.trigger('click');
+            closeOptionsMenu();
         }
+    }
+    
+    // Overlay
+    $overlay.click(function(event) {
+        closeAll();
     });
-
 
     // General keydowns
     $window.keydown(function(event) {
@@ -100,15 +120,7 @@ jQuery(document).ready(function($) {
             // Esc key
             case 27:
                 
-                // Close main menu if opened
-                if($menu.is('.opened')) {
-                    $menuBtn.trigger('click');
-                }
-                
-                // Close options menu if opened
-                if($optionsMenu.is('.opened')) {
-                    $optionsBtn.trigger('click');
-                }
+                closeAll();
                 
                 break;
         }
@@ -154,6 +166,7 @@ jQuery(document).ready(function($) {
     $('.user-logout').click(function(event) {
         event.preventDefault();
         signOut();
+        closeMenu();
     });
 
     // Utilities

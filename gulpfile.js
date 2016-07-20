@@ -78,7 +78,6 @@ var app = {
 
     jshintOptions = {
         'curly'     : true,
-        'latedef'   : true,
         'eqeqeq'    : true,
         'noempty'   : true,
         'newcap'    : true,
