@@ -248,23 +248,59 @@ jQuery(document).ready(function($) {
                 current     : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B4'
             };
 
+        // Check if current user has authorized this application
+        window.checkAuth = function() {
+            console.log('I\'m here!');
+            gapi.auth.authorize({
+                'client_id': clientId,
+                'scope': scopes.join(' '),
+                'immediate': true
+            }, handleAuthResult);
+        };
+
+        // Handle response from authorization server
+        window.handleAuthResult = function(authResult) {
+            
+            var authorizeDiv = document.getElementById('authorize-div');
+            
+            if (authResult && !authResult.error) {
+                // Hide auth UI, then load client library.
+                authorizeDiv.style.display = 'none';
+                loadSheetsApi();
+            } else {
+                // Show auth UI, allowing the user to initiate authorization by
+                // clicking authorize button.
+                authorizeDiv.style.display = 'inline';
+            }
+        };
+
+        // Initiate auth flow in response to user clicking authorize button.
+        window.handleAuthClick = function(event) {
+            
+            gapi.auth.authorize({
+                client_id: clientId,
+                scope: scopes,
+                immediate: false
+            }, handleAuthResult);
+            
+            return false;
+        };
+
+        // Load Sheets API client library
         window.loadSheetsApi = function() {
-            console.log('loadSheetsApi');
             var discoveryUrl = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
             gapi.client.load(discoveryUrl).then(listMajors);
         };
 
-        window.listMajors = function() {
+        // Print the names and majors of students in a sample spreadsheet
+        function listMajors() {
             gapi.client.sheets.spreadsheets.values.get({
                 spreadsheetId: spreadsheetId,
                 range: ranges.sample
             }).then(function(response) {
                 
                 var range = response.result;
-
-                console.log(range);
-                
-                /*if (range.values.length > 0) {
+                if (range.values.length > 0) {
                     appendPre('Name, Major:');
                     for (i = 0; i < range.values.length; i++) {
                         var row = range.values[i];
@@ -275,16 +311,40 @@ jQuery(document).ready(function($) {
                 } else {
                     appendPre('No data found.');
                     console.log('Doh!');
-                }*/
+                }
             
             }, function(response) {
                 console.log('errrrr');
-                //appendPre('Error: ' + response.result.error.message);
+                appendPre('Error: ' + response.result.error.message);
             });
-        };
+        }
 
-        loadSheetsApi();
-    
-    //} -> en if homepage
+        // Append a pre element to the body containing the given message as its text node (message Text to be placed in pre element)
+        function appendPre(message) {
+            var pre = document.getElementById('output');
+            var textContent = document.createTextNode(message + '\n');
+            pre.appendChild(textContent);
+        }
+
+
+
+        // $('.available-value').html(data);
+
+
+        /*$.ajax({
+            url: 
+        })
+        .done(function(data) {
+            console.log('success');
+            
+        })
+        .fail(function() {
+            console.log('error');
+        })
+        .always(function() {
+            console.log('complete');
+        });*/
+        
+    // } end if homepage
 
 });

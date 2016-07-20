@@ -83,7 +83,7 @@ var app = {
         'newcap'    : true,
         'nonew'     : true,
         'strict'    : true,
-        'camelcase' : true,
+        'camelcase' : false,            // Google API's use underscore on variables
         'quotmark'  : 'single',
         'unused'    : false,            // Set this to 'true' when developing
         'jquery'    : true
