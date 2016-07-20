@@ -161,18 +161,16 @@ jQuery(document).ready(function($) {
 
     // =============== Pages scripts ===================
     
-    
-    // General
-    $('.user-logout').click(function(event) {
-        event.preventDefault();
-        signOut();
-        closeMenu();
-    });
+    // Define App variables
+    var $userLogoutBtn  = $('.user-logout-btn'),
+        $profileImage   = $('.profile-image'),
+        $profileName    = $('.profile-name'),
+        $profileEmail   = $('.profile-email');
 
     // Utilities
-    var isPage = function(element) {
+    function isPage(element) {
         return $(element).length > 0 ? true : false;
-    };
+    }
 
     // Google Sing in
     window.renderButton = function() {
@@ -192,36 +190,44 @@ jQuery(document).ready(function($) {
 
         $body.removeClass('logged-out').addClass('logged-in');
         
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail());
-
-        // The ID token you need to pass to your backend:
+        var profile         = googleUser.getBasicProfile(),
+            profileId       = profile.getId(),
+            profileName     = profile.getName(),
+            profileImageURL = profile.getImageUrl(),
+            profileEmail    = profile.getEmail();
+        
+        // The ID token to pass to backend:
         //var id_token = googleUser.getAuthResponse().id_token;
         //console.log('ID Token: ' + id_token);
 
-        $('.profile-image').attr('src', profile.getImageUrl());
-        $('.profile-name').text(profile.getName());
-        $('.profile-email').text(profile.getEmail());
+        console.log('ID: ' + profileId);
+        console.log('Full Name: ' + profileName);
+        console.log('Image URL: ' + profileImageURL);
+        console.log('Email: ' + profileEmail);
+
+        $profileImage.attr('src', profileImageURL);
+        $profileName.text(profileName);
+        $profileEmail.text(profileEmail);
     };
 
     window.onSignInFailure = function(error){
-        
         console.log('Login error: ' + error);
     };
 
     window.signOut = function() {
-        
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             $body.removeClass('logged-in').addClass('logged-out');
         });
     };
 
-    // Homepage
+    $userLogoutBtn.click(function(event) {
+        event.preventDefault();
+        signOut();
+        closeMenu();
+    });
+
+    // ==== Homepage ==== //
     if (isPage('.dashboard')) {
         console.log('homepage');
     }
