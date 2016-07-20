@@ -70,9 +70,9 @@
 
         <!-- Google Analytics code -->
 
-        <!-- Google Sign-in -->
-        <!-- <meta name="google-signin-scope" content="https://www.googleapis.com/auth/spreadsheets"> -->
-        <meta name="google-signin-client_id" content="504102905851-nuidhoa6s03n8rs822sbgci4q4b72s7r.apps.googleusercontent.com">
+
+
+
     </head>
     <body>
 
@@ -162,12 +162,21 @@
             
             </section>
 
+            <!-- TODO: delete this below -->
+            <div id="authorize-div" style="opacity:0.3;">
+                <span>Authorize access to Google Sheets API</span>
+                <!--Button for the user to click to initiate auth sequence -->
+                <a href="#" class="google-login-btn-new">Login with Google</a>
+            </div>
+            <div class="output">Loading...</div>
+
         </main>
 
         <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/lib/jquery.js?ver=1.11.3"><\/script>')</script>
-        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-        <script type='text/javascript' src='js/scripts.js?ver=1.0.0'></script>
+        <script src="https://apis.google.com/js/client.js?onload=checkAuth" async defer></script>
+        <!-- <script type='text/javascript' src='js/scripts.js?ver=1.0.0'></script> -->
+        <script type='text/javascript' src='src/js/scripts.js?ver=1.0.0'></script>
     </body>
 </html>
