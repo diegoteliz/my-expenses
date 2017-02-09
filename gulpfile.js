@@ -98,8 +98,8 @@ gulp.task('sass', function() {
         .pipe(autoprefixer())
         .pipe(csslint(csslintOptions))
         .pipe(csslint.reporter())
-        .pipe(sourcemaps.write('./'))
         .pipe(header(app.banner, {pkg: pkg}))
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(app.path.cssDir))
         .pipe(browserSync.stream({match: '**/*.css'}));
 });
