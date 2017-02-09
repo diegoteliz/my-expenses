@@ -159,18 +159,13 @@ jQuery(document).ready(function($) {
     });
 
 
-    // =============== Pages scripts ===================
+    // TODO: delete this line =============== Pages scripts ===================
     
     // Define App variables
-    var $userLogoutBtn  = $('.user-logout-btn'),
+    /*var $userLogoutBtn  = $('.user-logout-btn'),
         $profileImage   = $('.profile-image'),
         $profileName    = $('.profile-name'),
         $profileEmail   = $('.profile-email');
-
-    // Utilities
-    function isPage(element) {
-        return $(element).length > 0 ? true : false;
-    }
 
     // Google Sing in
     window.renderButton = function() {
@@ -225,66 +220,152 @@ jQuery(document).ready(function($) {
         event.preventDefault();
         signOut();
         closeMenu();
+    });*/
+
+
+
+
+
+    // =============== Google sheets ===================
+    
+    // Variables for Google Sheets
+    var apiBase         = 'https://sheets.googleapis.com',
+        apiVersion      = 'v4',
+        apiURL          = apiBase + '/' + apiVersion + '/',
+        discoveryUrl    = apiBase + '/$discovery/rest?version=' + apiVersion,
+        spreadsheetId   = '15WHNmAqj7GIpFTocH2rMMY2bfqd18En6Lnee-AhGHkg',
+        gid             = '1381735184',
+        clientId        = '504102905851-nuidhoa6s03n8rs822sbgci4q4b72s7r.apps.googleusercontent.com',
+        scopes          = ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+        ranges          = {
+            dashboard   : 'Sheet2!B1:B4',
+            sample      : 'Sheet1!A1:A5',
+            available   : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B1',
+            savings     : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B2',
+            reward      : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B3',
+            current     : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B4'
+        },
+        $googleLoginBtnNew = $('.google-login-btn-new');
+
+    
+    // Initiate auth flow in response to user clicking authorize button.
+    $googleLoginBtnNew.click(function(event) {
+        console.log('# - handleAuthClick');
+        event.preventDefault();
+        gapi.auth.authorize({
+            'client_id': clientId,
+            'scope': scopes,
+            'immediate': false
+        }, handleAuthResult);
     });
 
-    // ==== Homepage ==== //
-    //if (isPage('.dashboard')) {
-        
-        console.log('homepage');
+    // Check if current user has authorized this application.
+    window.checkAuth = function() {
+        console.log('1 - checkAuth');
+        gapi.auth.authorize({
+            'client_id': clientId,
+            'scope': scopes.join(' '),
+            'immediate': true
+        }, handleAuthResult);
+    };
 
-        //TODO: move this variables below to "Define App variables"
-        var apiBase         = 'https://sheets.googleapis.com',
-            apiVersion      = 'v4',
-            apiURL          = apiBase + '/' + apiVersion + '/',
-            spreadsheetId   = '15WHNmAqj7GIpFTocH2rMMY2bfqd18En6Lnee-AhGHkg',
-            gid             = '1381735184',
-            clientId        = '504102905851-nuidhoa6s03n8rs822sbgci4q4b72s7r.apps.googleusercontent.com',
-            scopes          = ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-            ranges          = {
-                sample      : 'Sheet1!A2:E',
-                available   : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B1',
-                savings     : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B2',
-                reward      : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B3',
-                current     : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B4'
-            };
+    // Handle response from authorization server.
+    // @param {Object} authResult Authorization result.
+    function handleAuthResult(authResult) {
+        console.log('2 - handleAuthResult');
+        var authorizeDiv = document.getElementById('authorize-div');
+        if (authResult && !authResult.error) {
+            // Hide auth UI, then load client library.
+            authorizeDiv.style.opacity = '0.1';
+            //loadSheetsApi();
+            startApp();
+        } else {
+            // Show auth UI, allowing the user to initiate authorization by clicking authorize button.
+            authorizeDiv.style.opacity = '1';
+        }
+    }
 
-        window.loadSheetsApi = function() {
-            console.log('loadSheetsApi');
-            var discoveryUrl = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
-            gapi.client.load(discoveryUrl).then(listMajors);
-        };
+    // Load Sheets API client library.
+    function loadSheetsApi() {
+        console.log('3 - loadSheetsApi');
+        var discoveryUrl = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+        gapi.client.load(discoveryUrl).then(listMajors);
+    }
 
-        window.listMajors = function() {
-            gapi.client.sheets.spreadsheets.values.get({
-                spreadsheetId: spreadsheetId,
-                range: ranges.sample
-            }).then(function(response) {
-                
-                var range = response.result;
+    // Print the names and majors of students in a sample spreadsheet:
+    function listMajors() {
+        console.log('4 - listMajors');
+        gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: '15WHNmAqj7GIpFTocH2rMMY2bfqd18En6Lnee-AhGHkg',
+            range: 'Sheet1!A2',
+        }).then(function(response) {
+            var value = response.result.values[0];
+            console.log('5 - range:');
+            if (value.length > 0) {
+                $('.output').html(value);
+            } else {
+                console.log('No data found');
+            }
+        }, function(response) {
+            console.log('Error: ' + response.result.error.message);
+        });
+    }
 
-                console.log(range);
-                
-                /*if (range.values.length > 0) {
-                    appendPre('Name, Major:');
-                    for (i = 0; i < range.values.length; i++) {
-                        var row = range.values[i];
-                        // Print columns A and E, which correspond to indices 0 and 4.
-                        appendPre(row[0] + ', ' + row[4]);
-                    }
-                    console.log('Done');
-                } else {
-                    appendPre('No data found.');
-                    console.log('Doh!');
-                }*/
-            
-            }, function(response) {
-                console.log('errrrr');
-                //appendPre('Error: ' + response.result.error.message);
-            });
-        };
-
-        loadSheetsApi();
     
-    //} -> en if homepage
+
+    function getRange(range) {
+        gapi.client.sheets.spreadsheets.values.get({
+            'spreadsheetId': spreadsheetId,
+            'range': range,
+        }).then(function(response) {
+            var results = response.result.values;
+            console.log(results);
+            return results;
+        }, function(response) {
+            console.log('Error: ' + response.result.error.message);
+        });
+    }
+
+
+    // =============== Pages scripts ===================
+
+    // Define App variables
+
+    // App Utilities
+    function isPage(element) {
+        return $(element).length > 0 ? true : false;
+    }
+
+    function startApp() {
+        console.log('3 - startApp');
+
+        if (isPage('.dashboard')) {
+            console.log('homepage-route');
+            gapi.client.load(discoveryUrl).then(loadDashboard);
+        } else if (isPage('.envelopes')) {
+            console.log('homepage');
+            loadEnvelopes();
+        }
+        
+    }
+
+    // ==== Homepage ==== //
+    function loadDashboard() {
+        console.log('homepage-data');
+        gapi.client.sheets.spreadsheets.values.get({
+            'spreadsheetId': spreadsheetId,
+            'range': ranges.dashboard,
+        }).then(function(response) {
+            var results = response.result.values;
+            console.log(results);
+        }, function(response) {
+            console.log('Error: ' + response.result.error.message);
+        });
+    }
+
+    // ==== Envelopes ==== //
+    function loadEnvelopes() {
+        gapi.client.load(discoveryUrl).then(listMajors);
+    }
 
 });
