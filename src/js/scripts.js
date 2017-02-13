@@ -234,11 +234,11 @@ jQuery(document).ready(function($) {
         apiURL          = apiBase + '/' + apiVersion + '/',
         discoveryUrl    = apiBase + '/$discovery/rest?version=' + apiVersion,
         spreadsheetId   = '15WHNmAqj7GIpFTocH2rMMY2bfqd18En6Lnee-AhGHkg',
-        gid             = '1381735184',
+        gid             = '1891753743',
         clientId        = '504102905851-nuidhoa6s03n8rs822sbgci4q4b72s7r.apps.googleusercontent.com',
         scopes          = ['https://www.googleapis.com/auth/spreadsheets.readonly'],
         ranges          = {
-            dashboard   : 'Sheet2!B1:B4',
+            dashboard   : 'Current!G4:J4',
             sample      : 'Sheet1!A1:A5',
             available   : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B1',
             savings     : apiURL + 'spreadsheets/' + spreadsheetId + '/values/B2',
@@ -358,9 +358,28 @@ jQuery(document).ready(function($) {
         }).then(function(response) {
             var results = response.result.values;
             console.log(results);
+            renderDashboard(results);
         }, function(response) {
             console.log('Error: ' + response.result.error.message);
         });
+    }
+    
+    function renderDashboard(data) {
+        if (data) {
+            var $availableVal = $('#available-value'),
+                $savingsVal = $('#savings-value'),
+                $rewardVal = $('#reward-value'),
+                $currentVal = $('#current-value');
+
+            // TODO: improve this below
+            $availableVal.html(data[0][0]);
+            $savingsVal.html(data[0][1]);
+            $rewardVal.html(data[0][2]);
+            $currentVal.html(data[0][3]);
+
+        } else {
+            console.log('Error loading data');
+        }
     }
 
     // ==== Envelopes ==== //
