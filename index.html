@@ -116,20 +116,21 @@
         <!-- Main page content -->
         <main class="main-content">
             
+            <div class="loading">Loading...</div>
+
             <!-- TODO: add HTML/CSS to login section -->
             <div class="login wrapper" style="margin-top:100px">
                 <div id="google-login-btn" class="google-login-btn"></div>
             </div>
 
             <!-- Homepage / Dashboard -->
-            <section class="dashboard">
+            <section class="dashboard" style="display:none">
 
                 <div class="wrapper">
 
                     <div class="available">
                         <h3 class="sub-title">Ava</h3>
                         <div class="available-amount">
-                            <span class="currency">$</span>
                             <div class="value" id="available-value">###</div>
                         </div>
                     </div>
@@ -137,7 +138,6 @@
                     <div class="savings">
                         <h3 class="sub-title">Sav</h3>
                         <div class="savings-amount">
-                            <span class="currency">$</span>
                             <div class="value" id="savings-value">###</div>
                         </div>
                     </div>
@@ -145,7 +145,6 @@
                     <div class="reward">
                         <h3 class="sub-title">Reward</h3>
                         <div class="reward-amount">
-                            <span class="currency">$</span>
                             <div class="value" id="reward-value">###</div>
                         </div>
                     </div>
@@ -153,24 +152,22 @@
                     <div class="current">
                         <h3 class="sub-title">Current</h3>
                         <div class="current-amount">
-                            <span class="currency">$</span>
                             <div class="value" id="current-value">####</div>
                         </div>
                     </div>
 
                 </div>
 
-                <!-- TODO: add html templates for Envelopes, Next expenses and settings and hide them through CSS -->
-            
             </section>
+            
+            <!-- TODO: add html templates for Envelopes, Next expenses and settings and hide them through CSS -->
 
             <!-- TODO: delete this below -->
-            <div id="authorize-div" style="opacity:0.3;">
+            <div id="authorize-div" style="display:none;">
                 <span>Authorize access to Google Sheets API</span>
                 <!--Button for the user to click to initiate auth sequence -->
                 <a href="#" class="google-login-btn-new">Login with Google</a>
             </div>
-            <div class="output">Loading...</div>
 
         </main>
 

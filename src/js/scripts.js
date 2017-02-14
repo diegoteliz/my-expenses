@@ -248,7 +248,7 @@ jQuery(document).ready(function($) {
         $googleLoginBtnNew = $('.google-login-btn-new');
 
     
-    // Initiate auth flow in response to user clicking authorize button.
+    // Initiate auth flow in response to user clicking login button.
     $googleLoginBtnNew.click(function(event) {
         console.log('# - handleAuthClick');
         event.preventDefault();
@@ -270,21 +270,98 @@ jQuery(document).ready(function($) {
     };
 
     // Handle response from authorization server.
-    // @param {Object} authResult Authorization result.
     function handleAuthResult(authResult) {
         console.log('2 - handleAuthResult');
-        var authorizeDiv = document.getElementById('authorize-div');
+
         if (authResult && !authResult.error) {
             // Hide auth UI, then load client library.
-            authorizeDiv.style.opacity = '0.1';
+            //authorizeDiv.style.opacity = '0';
             //loadSheetsApi();
             startApp();
         } else {
             // Show auth UI, allowing the user to initiate authorization by clicking authorize button.
-            authorizeDiv.style.opacity = '1';
+            $('.loading').hide();
+            $('#authorize-div').fadeIn(200);
         }
     }
 
+
+    // =============== Pages scripts ===================
+
+    // Define App variables
+
+    // App Utilities
+    function isPage(element) {
+        return $(element).length > 0 ? true : false;
+    }
+
+    function startApp() {
+        console.log('3 - startApp');
+
+        if (isPage('.dashboard')) {
+            console.log('homepage-route');
+            gapi.client.load(discoveryUrl).then(loadDashboard);
+        } else if (isPage('.envelopes')) {
+            console.log('homepage');
+            loadEnvelopes();
+        }
+    }
+
+    // ==== Homepage ==== //
+    function loadDashboard() {
+        console.log('loading-dashboard');
+
+        gapi.client.sheets.spreadsheets.values.get({
+            'spreadsheetId': spreadsheetId,
+            'range': ranges.dashboard,
+        }).then(function(response) {
+            var results = response.result.values;
+            console.log(results);
+            renderDashboard(results);
+        }, function(response) {
+            console.log('Error: ' + response.result.error.message);
+        });
+
+    }
+    
+    function renderDashboard(data) {
+        if (data) {
+            var $availableVal = $('#available-value'),
+                $savingsVal = $('#savings-value'),
+                $rewardVal = $('#reward-value'),
+                $currentVal = $('#current-value');
+
+            // TODO: improve this below
+            $('.loading').hide();
+            $availableVal.html('$' + data[0][0]);
+            $savingsVal.html('$' + data[0][1]);
+            $rewardVal.html('$' + data[0][2]);
+            $currentVal.html('$' + data[0][3]);
+            $('.dashboard').fadeIn(200);
+
+        } else {
+            console.log('Error loading data');
+        }
+    }
+
+    // ==== Envelopes ==== //
+    function loadEnvelopes() {
+        gapi.client.load(discoveryUrl).then(listMajors);
+    }
+
+    // ==== Next expenses ==== //
+
+    // ==== Settings ==== //
+
+});
+
+
+
+
+
+
+/// ----- TODO: DELETE this below ----------
+/*
     // Load Sheets API client library.
     function loadSheetsApi() {
         console.log('3 - loadSheetsApi');
@@ -310,81 +387,5 @@ jQuery(document).ready(function($) {
             console.log('Error: ' + response.result.error.message);
         });
     }
-
-    
-
-    function getRange(range) {
-        gapi.client.sheets.spreadsheets.values.get({
-            'spreadsheetId': spreadsheetId,
-            'range': range,
-        }).then(function(response) {
-            var results = response.result.values;
-            console.log(results);
-            return results;
-        }, function(response) {
-            console.log('Error: ' + response.result.error.message);
-        });
-    }
-
-
-    // =============== Pages scripts ===================
-
-    // Define App variables
-
-    // App Utilities
-    function isPage(element) {
-        return $(element).length > 0 ? true : false;
-    }
-
-    function startApp() {
-        console.log('3 - startApp');
-
-        if (isPage('.dashboard')) {
-            console.log('homepage-route');
-            gapi.client.load(discoveryUrl).then(loadDashboard);
-        } else if (isPage('.envelopes')) {
-            console.log('homepage');
-            loadEnvelopes();
-        }
-        
-    }
-
-    // ==== Homepage ==== //
-    function loadDashboard() {
-        console.log('homepage-data');
-        gapi.client.sheets.spreadsheets.values.get({
-            'spreadsheetId': spreadsheetId,
-            'range': ranges.dashboard,
-        }).then(function(response) {
-            var results = response.result.values;
-            console.log(results);
-            renderDashboard(results);
-        }, function(response) {
-            console.log('Error: ' + response.result.error.message);
-        });
-    }
-    
-    function renderDashboard(data) {
-        if (data) {
-            var $availableVal = $('#available-value'),
-                $savingsVal = $('#savings-value'),
-                $rewardVal = $('#reward-value'),
-                $currentVal = $('#current-value');
-
-            // TODO: improve this below
-            $availableVal.html(data[0][0]);
-            $savingsVal.html(data[0][1]);
-            $rewardVal.html(data[0][2]);
-            $currentVal.html(data[0][3]);
-
-        } else {
-            console.log('Error loading data');
-        }
-    }
-
-    // ==== Envelopes ==== //
-    function loadEnvelopes() {
-        gapi.client.load(discoveryUrl).then(listMajors);
-    }
-
-});
+*/
+/// ----- end DELETE ----------
